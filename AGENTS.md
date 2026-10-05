@@ -38,7 +38,7 @@ That builds and copies the DLL into the Gale Default profile `BepInEx\scripts` f
 
 `..\tools\dev.ps1 install` and `disable` manage ScriptEngine once for the profile.
 
-Do not run `package.ps1` / `release.ps1` unless asked.
+Do not run `package.ps1` / `release.ps1` unless asked. Before a release, fill `docs/test-matrix.md` so every check for that version is `pass`.
 
 ## Version bumps
 
