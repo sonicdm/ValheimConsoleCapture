@@ -59,7 +59,7 @@ jobs:
           echo "zip_name=$NAME-$VERSION.zip" >> "$GITHUB_OUTPUT"
 
       - name: Restore
-        run: dotnet restore ValheimConsoleCapture.csproj tests/PluginAudit.Tests/PluginAudit.Tests.csproj --nologo
+        run: dotnet restore ValheimConsoleCapture.sln --nologo
 
       - name: Build plugin
         shell: bash
@@ -74,7 +74,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet test tests/PluginAudit.Tests/PluginAudit.Tests.csproj \
+          dotnet test ValheimConsoleCapture.sln \
             --configuration Release \
             --nologo
 

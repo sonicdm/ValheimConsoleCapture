@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValheimConsoleCapture", "ValheimConsoleCapture.csproj", "{6CEC16F4-AD7F-45E4-B791-85148119AD0F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{83493370-FDAC-4403-B16E-DA8D72A46E10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginAudit.Tests", "tests\PluginAudit.Tests\PluginAudit.Tests.csproj", "{E07209A6-98D1-49E5-8D4F-BA91E17025BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CEC16F4-AD7F-45E4-B791-85148119AD0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CEC16F4-AD7F-45E4-B791-85148119AD0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CEC16F4-AD7F-45E4-B791-85148119AD0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CEC16F4-AD7F-45E4-B791-85148119AD0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E07209A6-98D1-49E5-8D4F-BA91E17025BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E07209A6-98D1-49E5-8D4F-BA91E17025BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E07209A6-98D1-49E5-8D4F-BA91E17025BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E07209A6-98D1-49E5-8D4F-BA91E17025BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E07209A6-98D1-49E5-8D4F-BA91E17025BC} = {83493370-FDAC-4403-B16E-DA8D72A46E10}
+	EndGlobalSection
+EndGlobal
