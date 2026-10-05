@@ -122,28 +122,26 @@ jobs:
           path: dist/${{ needs.verify.outputs.zip_name }}
           if-no-files-found: error
 
+      # GreenTF/upload-thunderstore-package@v4.3 ignores `repo` and always hits
+      # thunderstore.io, so Hexium uploads must use tcli directly.
+      - name: Install tcli
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION=0.2.4
+          curl -fsSL "https://github.com/thunderstore-io/thunderstore-cli/releases/download/${VERSION}/tcli-${VERSION}-linux-x64.tar.gz" \
+            | tar -xz
+          sudo install -m 0755 "tcli-${VERSION}-linux-x64/tcli" /usr/local/bin/tcli
+
       - name: Publish to Hexium
-        uses: GreenTF/upload-thunderstore-package@v4.3
-        with:
-          namespace: SonicDM
-          name: ${{ needs.verify.outputs.name }}
-          description: ${{ needs.verify.outputs.description }}
-          version: ${{ needs.verify.outputs.version }}
-          community: valheim
-          repo: hexium.gg
-          token: ${{ secrets.HEXIUM_TOKEN }}
-          file: dist/${{ needs.verify.outputs.zip_name }}
+        env:
+          TCLI_AUTH_TOKEN: ${{ secrets.HEXIUM_TOKEN }}
+        run: tcli publish --repository https://hexium.gg --file "dist/${{ needs.verify.outputs.zip_name }}"
 
       - name: Publish to Thunderstore
-        uses: GreenTF/upload-thunderstore-package@v4.3
-        with:
-          namespace: SonicDM
-          name: ${{ needs.verify.outputs.name }}
-          description: ${{ needs.verify.outputs.description }}
-          version: ${{ needs.verify.outputs.version }}
-          community: valheim
-          token: ${{ secrets.THUNDERSTORE_TOKEN }}
-          file: dist/${{ needs.verify.outputs.zip_name }}
+        env:
+          TCLI_AUTH_TOKEN: ${{ secrets.THUNDERSTORE_TOKEN }}
+        run: tcli publish --repository https://thunderstore.io --file "dist/${{ needs.verify.outputs.zip_name }}"
 
   release-notes:
     needs: [verify, publish]
