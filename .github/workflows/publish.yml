@@ -133,6 +133,59 @@ jobs:
             | tar -xz
           sudo install -m 0755 "tcli-${VERSION}-linux-x64/tcli" /usr/local/bin/tcli
 
+      - name: Write thunderstore.toml
+        shell: bash
+        env:
+          PKG_NAME: ${{ needs.verify.outputs.name }}
+          PKG_VERSION: ${{ needs.verify.outputs.version }}
+          PKG_DESCRIPTION: ${{ needs.verify.outputs.description }}
+        run: |
+          set -euo pipefail
+          python3 <<'PY'
+          import json, os, pathlib
+
+          name = os.environ["PKG_NAME"]
+          version = os.environ["PKG_VERSION"]
+          description = os.environ["PKG_DESCRIPTION"].replace("\\", "\\\\").replace('"', '\\"')
+          manifest = json.loads(pathlib.Path("manifest.json").read_text(encoding="utf-8"))
+
+          dep_lines = []
+          for dep in manifest.get("dependencies") or []:
+              package_id, ver = dep.rsplit("-", 1)
+              dep_lines.append(f'{package_id} = "{ver}"')
+          deps_block = "\n".join(dep_lines)
+
+          text = f"""[config]
+schemaVersion = "0.0.1"
+
+[package]
+namespace = "SonicDM"
+name = "{name}"
+versionNumber = "{version}"
+description = "{description}"
+websiteUrl = "https://github.com/sonicdm/{name}"
+containsNsfwContent = false
+
+[package.dependencies]
+{deps_block}
+
+[build]
+icon = "./icon.png"
+readme = "./README.md"
+outdir = "./build"
+
+[[build.copy]]
+source = "./dist"
+target = ""
+
+[publish]
+repository = "thunderstore.io"
+communities = ["valheim"]
+"""
+          pathlib.Path("thunderstore.toml").write_text(text, encoding="utf-8")
+          print(text)
+          PY
+
       - name: Publish to Hexium
         env:
           TCLI_AUTH_TOKEN: ${{ secrets.HEXIUM_TOKEN }}
