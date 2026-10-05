@@ -1,0 +1,11 @@
+{
+  "name": "ValheimConsoleCapture",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/sonicdm/ValheimConsoleCapture",
+  "description": "Mirror the F5 console into a local log. Copy recent lines, dump them to a file, or run a command chain and save only that output.",
+  "author": "SonicDM",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2202",
+    "ValheimModding-Jotunn-2.23.0"
+  ]
+}
